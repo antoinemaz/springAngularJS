@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+        
+    <context:property-placeholder location="classpath:local.properties" />
+    <context:component-scan base-package="fr.personne"/>
+	<context:component-scan base-package="fr.personnes.bean" />
+	
+    <tx:annotation-driven transaction-manager="txm" />
+    
+		<bean id="txm" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		    <property name="sessionFactory" ref="sessionFactory" />
+		</bean>
+	
+	<beans profile="developpement">
+		<bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		    <property name="driverClassName" value="${jdbc.driverClassName}" />
+		    <property name="url" value="${jdbc.url}" />
+		    <property name="username" value="${jdbc.username}" />
+		    <property name="password" value="${jdbc.password}" />
+		</bean>
+		 <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		    <property name="dataSource" ref="dataSource" />
+		    <property name="packagesToScan">
+	            <list>
+	                <value>fr.personne.entities</value>
+	            </list>
+	        </property>
+		    <property name="hibernateProperties">
+		        <props>
+		            <prop key="hibernate.dialect">
+		                org.hibernate.dialect.MySQL5Dialect
+		            </prop>
+		            <prop key="hibernate.show_sql">
+		                true
+		            </prop>
+		            <prop key="hibernate.format_sql">true</prop>
+		            <prop key="hibernate.hbm2ddl.auto">update</prop>
+		        </props>
+		    </property>
+		</bean>
+	</beans>
+		
+	<beans profile="test">
+	   <bean id="dataSource"
+	          class="org.h2.jdbcx.JdbcDataSource">
+	        <property name="URL" value="jdbc:h2:~/h2-testdb"/>
+	        <property name="user" value="root"/>
+	        <property name="password" value=""/>
+    	</bean>
+    	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		    <property name="dataSource" ref="dataSource" />
+		    <property name="packagesToScan">
+	            <list>
+	                <value>fr.personne.entities</value>
+	            </list>
+	        </property>
+		    <property name="hibernateProperties">
+		        <props>
+		            <prop key="hibernate.dialect">
+		                org.hibernate.dialect.H2Dialect
+		            </prop>
+		            <prop key="hibernate.show_sql">
+		                true
+		            </prop>
+		            <prop key="hibernate.format_sql">true</prop>
+		            <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+		        </props>
+		    </property>
+		</bean>
+	</beans>
+	
+</beans>

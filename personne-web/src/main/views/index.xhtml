@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+	
+    <h:head>
+        <title>Personnes</title>
+    </h:head>
+    <h:body>
+    	<h2>Personnes</h2>
+			<h:form>
+			    <p:panel id="panel" header="New User">
+			 
+			        <p:messages id="msgs" />
+			 
+			        <h:panelGrid columns="3" cellpadding="5">
+			            <p:outputLabel for="nom" value="Nom : " />
+			            <p:inputText id="nom" value="#{personneBean.personne.nom}" required="true" label="nom">
+			                <f:validateLength minimum="2" />
+			            </p:inputText>
+			            
+			            <p:message for="nom" display="icon" />
+			 
+			            <p:outputLabel for="prenom" value="Prénom : " />
+			            <p:inputText id="prenom" value="#{personneBean.personne.prenom}" label="prenom" required="true">
+			                <f:validateLength minimum="2" />
+			                <p:ajax update="msgLastname" event="keyup" />
+			            </p:inputText>
+			            <p:message for="prenom" id="msgLastname" display="icon" />
+			 			
+			 			<p:outputLabel for="age" value="Age : " />
+			            <p:inputText id="age" value="#{personneBean.personne.age}" label="age" required="true">
+			                <f:validateLength minimum="2" />
+			            </p:inputText>
+			 
+			        </h:panelGrid>
+			 
+			        <p:commandButton value="Save" update="@form" action="#{personneBean.save}" icon="ui-icon-check" />
+			    </p:panel>
+			    
+			    <p:dataTable var="p" value="#{personneBean.personneDao.findAll()}">
+				    <p:column headerText="Nom">
+				        <h:outputText value="#{p.nom}" />
+				    </p:column>
+				 
+				    <p:column headerText="Prénom">
+				        <h:outputText value="#{p.prenom}" />
+				    </p:column>
+				 
+				    <p:column headerText="Age">
+				        <h:outputText value="#{p.age}" />
+				    </p:column>
+			</p:dataTable>
+    	   
+    	</h:form>
+    </h:body>
+</html>

@@ -1,0 +1,36 @@
+<html ng-app="personneApp">
+	<head>
+		<title>Hello AngularJS</title>
+		
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-resource.js"></script>
+    	<script src="resources/main.js"></script>
+	</head>
+
+	<body ng-controller="mainController as ctrl">
+		
+		<form name="myForm" ng-submit="ctrl.submit()">
+		
+			<div>{{message}}</div>
+		
+		    <label>Nom : </label>
+		    <input name="nom" type="text" ng-model="ctrl.user.nom" />
+			<!-- <span ng-show="submitted && myForm.nom.$error.required">Nom requis ! </span> -->
+		    
+		    <label>Prénom : </label>
+		    <input name="prenom" type="text" ng-model="ctrl.user.prenom" />
+		
+		    <label>Âge : </label>
+		    <input name="age" type="number" ng-model="ctrl.user.age" />
+		    
+		    <input type="submit" value="Envoyer" />
+		</form>
+		
+		<div ng-repeat="u in ctrl.users">
+			{{u.nom}}
+		</div>
+
+	</body>
+</html>

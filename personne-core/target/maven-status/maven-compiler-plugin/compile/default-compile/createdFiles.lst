@@ -1,0 +1,7 @@
+fr\personne\entities\PersonneEntity.class
+fr\personne\dao\impl\PersonneDaoImpl.class
+fr\personne\sql\GenerateSql.class
+Main.class
+fr\personne\dao\PersonneDao.class
+fr\personne\service\impl\PersonneServiceImpl.class
+fr\personne\service\PersonneService.class

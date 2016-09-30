@@ -29,4 +29,14 @@
  		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
 	
+<!--    <filter>
+    <filter-name>cors</filter-name>
+    <filter-class>fr.rest.controller.CorsFilter</filter-class>
+  </filter>
+  
+  <filter-mapping>
+    <filter-name>cors</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping> -->
+	
 </web-app>
